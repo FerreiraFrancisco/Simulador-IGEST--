@@ -1,6 +1,65 @@
+######################################
+# Para facilitar o cÃ³digo, abra o arquivo e de o nome "geral"
+
+trt1 <- geral[c(1:146),]
+trt2 <- geral[c(147:363),]
+trt3 <- geral[c(364:521),]
+trt4 <- geral[c(522:653),]
+trt5 <- geral[c(654:741),]
+trt6 <- geral[c(742:808),]
+trt7 <- geral[c(809:845),]
+trt8 <- geral[c(846:901),]
+trt9 <- geral[c(902:997),]
+trt10 <- geral[c(998:1032),] 
+trt11 <- geral[c(1033:1064),]
+trt12 <- geral[c(1065:1124),]
+trt13 <- geral[c(1125:1151),]
+trt14 <- geral[c(1152:1183),]
+trt15 <- geral[c(1184:1336),]
+trt16 <- geral[c(1337:1359),]
+trt17 <- geral[c(1360:1383),]
+trt18 <- geral[c(1384:1431),]
+trt18 <- geral[c(1384:1431),]
+trt19 <- geral[c(1432:1453),]
+trt20 <- geral[c(1454:1468),]
+trt21 <- geral[c(1469:1491),]
+trt22 <- geral[c(1492:1505),]
+trt23 <- geral[c(1506:1543),]
+trt24 <- geral[c(1544:1569),]
+
+# Filtro por tribunal
+escolha_tribunal <- c("GERAL","TRT01-RJ","TRT02-SP","TRT03-MG","TRT04-RS","TRT05-BA","TRT06-PE","TRT07-CE","TRT08-PA/AP",
+                      "TRT09-PR","TRT10-DF/TO","TRT11-AM/RR","TRT12-SC","TRT13-PB","TRT14-RO/AC","TRT15-Campinas","TRT16-MA",
+                      "TRT17-ES","TRT18-GO","TRT19-AL","TRT20-SE","TRT21-RN","TRT22-PI","TRT23-MT","TRT24-MS")
+
+# Filtro por vara de trabalho
+escolha_vt <- trt10$`Vara do Trabalho`
+
+# Valores iniciais para cada variÃ¡vel, por vara.
+valores_iniciais1 <- round(c(trt10$`V01 - Idade MÃ©dia do Pendente de Julgamento`),4)
+valores_iniciais2 <- round(c(trt10$`V02 - Pendentes de Baixa na Fase de Conhecimento`),4)
+valores_iniciais3 <- round(c(trt10$`V03 - LiquidaÃ§Ãµes Pendentes`),4)
+valores_iniciais4 <- round(c(trt10$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`),4)
+valores_iniciais5 <- round(c(trt10$`V05 - Prazo na Fase de Conhecimento`),4)
+valores_iniciais6 <- round(c(trt10$`V06 - Prazo na Fase de LiquidaÃ§Ã£o`),4)
+valores_iniciais7 <- round(c(trt10$`V07 - Prazo na Fase de ExecuÃ§Ã£o`),4)
+valores_iniciais8 <- round(c(trt10$`V08 - ConciliaÃ§Ãµes`),4)
+valores_iniciais9 <- round(c(trt10$`V09 - Solucionados`),4)
+valores_iniciais10 <- round(c(trt10$`V10 - Recebidos`),4)
+valores_iniciais11 <- round(c(trt10$`V11 - Pendentes de Julgamento conclusos com prazo vencido`),4)
+valores_iniciais12 <- round(c(trt10$`V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a`),4)
+valores_iniciais13 <- round(c(trt10$`V13 - Baixados na Fase de Conhecimento`),4)
+valores_iniciais14 <- round(c(trt10$`V14 - Baixados na Fase de ExecuÃ§Ã£o`),4)
+valores_iniciais15 <- round(c(trt10$`V15 - Servidores Ativos`),4)
+valores_iniciais16 <- round(c(trt10$`V16 - ExecuÃ§Ãµes Iniciadas`),4)
+valores_iniciais17 <- round(c(trt10$`V17 - ExecuÃ§Ãµes Encerradas`),4)
 
 ######################################
-source("G:\\24. IGest Nacional\\Simulador R\\Simulador\\Nacionais - Dados iniciais.R")
+
+#             PAINEL                 #
+
+######################################
+
 
 ui <- shinyUI(fluidPage(theme = shinytheme("flatly"),
                        titlePanel(h1("Simulador IGEST - Nacional", align = 'center')),
@@ -8,51 +67,51 @@ ui <- shinyUI(fluidPage(theme = shinytheme("flatly"),
                                   tabPanel(icon("robot"),
                                            fluidRow(
                                              column(3,style = "height: 90vh; overflow-y: auto;", 
-                                                    p(strong("PARTE 1: Selecione no filtro abaixo o tribunal que deseja comparar os dados com as varas do TRT 10ª 
-                                                             na tabela ao lado. Por padrão, temos a visualização dos dados em âmbito nacional.", style = "color:#444444")),
+                                                    p(strong("PARTE 1: Selecione no filtro abaixo o tribunal que deseja comparar os dados com as varas do TRT 10Âª 
+                                                             na tabela ao lado. Por padrÃ£o, temos a visualizaÃ§Ã£o dos dados em Ã¢mbito nacional.", style = "color:#444444")),
                                                     pickerInput("tribunal", choices = escolha_tribunal, multiple = FALSE),
                                                     #
-                                                    # Desativado - p(strong("Selecione a(s) vara(s) para comparação", style = "color:#444444")),
+                                                    # Desativado - p(strong("Selecione a(s) vara(s) para comparaÃ§Ã£o", style = "color:#444444")),
                                                     # Desativado - pickerInput("tribunal_varas", choices = escolha_vt01,multiple = T),
                                                     #
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    p(strong("PARTE 2: Selecione agora a vara específica do TRT 10ª para alterar as variáveis Vxx(V01, V02,..., V17).
-                                                             No primeiro campo estão os valores que pode ser alterados de acordo com a sua escolha, e abaixo dele
-                                                             está armazenado o valor real da variável.", style = "color:#444444")),
+                                                    p(strong("PARTE 2: Selecione agora a vara especÃ­fica do TRT 10Âª para alterar as variÃ¡veis Vxx(V01, V02,..., V17).
+                                                             No primeiro campo estÃ£o os valores que pode ser alterados de acordo com a sua escolha, e abaixo dele
+                                                             estÃ¡ armazenado o valor real da variÃ¡vel.", style = "color:#444444")),
                                                     pickerInput("varas1", choices = escolha_vt,multiple = FALSE),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v01", "V01 - Idade Média do Pendente de Julgamento (-)", round(trt10$`V01 - Idade Média do Pendente de Julgamento`[1],4),min = 0),
-                                                    textInput("texto_01", "", round(trt10$`V01 - Idade Média do Pendente de Julgamento`[1],4)),
+                                                    numericInput("v01", "V01 - Idade MÃ©dia do Pendente de Julgamento (-)", round(trt10$`V01 - Idade MÃ©dia do Pendente de Julgamento`[1],4),min = 0),
+                                                    textInput("texto_01", "", round(trt10$`V01 - Idade MÃ©dia do Pendente de Julgamento`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
                                                     numericInput("v02", "V02 - Pendentes de Baixa na Fase de Conhecimento (-)", round(trt10$`V02 - Pendentes de Baixa na Fase de Conhecimento`[1],4), min = 0, max = 1588),
                                                     textInput("texto_02", "", round(trt10$`V02 - Pendentes de Baixa na Fase de Conhecimento`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v03", "V03 - Liquidações Pendentes (-)", round(trt10$`V03 - Liquidações Pendentes`[1],4), min = 0, max = 722),
-                                                    textInput("texto_03", "", round(trt10$`V03 - Liquidações Pendentes`[1],4)),
+                                                    numericInput("v03", "V03 - LiquidaÃ§Ãµes Pendentes (-)", round(trt10$`V03 - LiquidaÃ§Ãµes Pendentes`[1],4), min = 0, max = 722),
+                                                    textInput("texto_03", "", round(trt10$`V03 - LiquidaÃ§Ãµes Pendentes`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v04", "V04 - Pendentes de Baixa na Fase de Execução (-)", round(trt10$`V04 - Pendentes de Baixa na Fase de Execução`[1],4), min = 0, max = 3950),
-                                                    textInput("texto_04", "", round(trt10$`V04 - Pendentes de Baixa na Fase de Execução`[1],4)),
+                                                    numericInput("v04", "V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o (-)", round(trt10$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`[1],4), min = 0, max = 3950),
+                                                    textInput("texto_04", "", round(trt10$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
                                                     numericInput("v05", "V05 - Prazo na Fase de Conhecimento (-)", round(trt10$`V05 - Prazo na Fase de Conhecimento`[1],4), min = 0, max = 10000),
                                                     textInput("texto_05", "", round(trt10$`V05 - Prazo na Fase de Conhecimento`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v06", "V06 - Prazo na Fase de Liquidação (-)", round(trt10$`V06 - Prazo na Fase de Liquidação`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_06", "", round(trt10$`V06 - Prazo na Fase de Liquidação`[1],4)),
+                                                    numericInput("v06", "V06 - Prazo na Fase de LiquidaÃ§Ã£o (-)", round(trt10$`V06 - Prazo na Fase de LiquidaÃ§Ã£o`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_06", "", round(trt10$`V06 - Prazo na Fase de LiquidaÃ§Ã£o`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v07", "V07 - Prazo na Fase de Execução (-)", round(trt10$`V07 - Prazo na Fase de Execução`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_07", "", round(trt10$`V07 - Prazo na Fase de Execução`[1],4)),
+                                                    numericInput("v07", "V07 - Prazo na Fase de ExecuÃ§Ã£o (-)", round(trt10$`V07 - Prazo na Fase de ExecuÃ§Ã£o`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_07", "", round(trt10$`V07 - Prazo na Fase de ExecuÃ§Ã£o`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v08", "V08 - Conciliações (+)", round(trt10$`V08 - Conciliações`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_08", "", round(trt10$`V08 - Conciliações`[1],4)),
+                                                    numericInput("v08", "V08 - ConciliaÃ§Ãµes (+)", round(trt10$`V08 - ConciliaÃ§Ãµes`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_08", "", round(trt10$`V08 - ConciliaÃ§Ãµes`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
                                                     numericInput("v09", "V09 - Solucionados (+)", round(trt10$`V09 - Solucionados`[1],4), min = 0, max = 10000),
@@ -67,28 +126,28 @@ ui <- shinyUI(fluidPage(theme = shinytheme("flatly"),
                                                     textInput("texto_11", "", round(trt10$`V11 - Pendentes de Julgamento conclusos com prazo vencido`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v12", "V12 - Total de processos Conclusos aguardando prolação da sentença (+)", round(trt10$`V12 - Total de Processos Conclusos aguardando prolação da sentença`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_12", "", round(trt10$`V12 - Total de Processos Conclusos aguardando prolação da sentença`[1],4)),
+                                                    numericInput("v12", "V12 - Total de processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a (+)", round(trt10$`V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_12", "", round(trt10$`V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
                                                     numericInput("v13", "V13 - Baixados na Fase de Conhecimento (+)", round(trt10$`V13 - Baixados na Fase de Conhecimento`[1],4), min = 0, max = 10000),
                                                     textInput("texto_13", "", round(trt10$`V13 - Baixados na Fase de Conhecimento`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v14", "V14 - Baixados na Fase de Execução (+)", round(trt10$`V14 - Baixados na Fase de Execução`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_14", "", round(trt10$`V14 - Baixados na Fase de Execução`[1],4)),
+                                                    numericInput("v14", "V14 - Baixados na Fase de ExecuÃ§Ã£o (+)", round(trt10$`V14 - Baixados na Fase de ExecuÃ§Ã£o`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_14", "", round(trt10$`V14 - Baixados na Fase de ExecuÃ§Ã£o`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
                                                     numericInput("v15", "V15 - Servidores Ativos (+)", round(trt10$`V15 - Servidores Ativos`[1],4), min = 0, max = 50),
                                                     textInput("texto_15", "", round(trt10$`V15 - Servidores Ativos`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v16", "V16 - Execuções Iniciadas (+)", round(trt10$`V16 - Execuções Iniciadas`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_16", "", round(trt10$`V16 - Execuções Iniciadas`[1],4)),
+                                                    numericInput("v16", "V16 - ExecuÃ§Ãµes Iniciadas (+)", round(trt10$`V16 - ExecuÃ§Ãµes Iniciadas`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_16", "", round(trt10$`V16 - ExecuÃ§Ãµes Iniciadas`[1],4)),
                                                     tags$hr(style="border-color: black;"),
                                                     #
-                                                    numericInput("v17", "V17 - Execuções Encerradas (+)", round(trt10$`V17 - Execuções Encerradas`[1],4), min = 0, max = 10000),
-                                                    textInput("texto_17", "", round(trt10$`V17 - Execuções Encerradas`[1],4)),
+                                                    numericInput("v17", "V17 - ExecuÃ§Ãµes Encerradas (+)", round(trt10$`V17 - ExecuÃ§Ãµes Encerradas`[1],4), min = 0, max = 10000),
+                                                    textInput("texto_17", "", round(trt10$`V17 - ExecuÃ§Ãµes Encerradas`[1],4)),
                                                     tags$hr(style="border-color: black;")
                                                     
                                                     
@@ -105,7 +164,7 @@ ui <- shinyUI(fluidPage(theme = shinytheme("flatly"),
                                                           fluidRow(column(DT::dataTableOutput("valor01"),
                                                                           width = 12))
                                                           ),
-                                                 tabPanel(strong("Mesoindicadores - Valor posição"),br(),
+                                                 tabPanel(strong("Mesoindicadores - Valor posiÃ§Ã£o"),br(),
                                                           fluidRow(column(DT::dataTableOutput("valor02_fixo"),
                                                                           width = 12)
                                                                    ),
@@ -149,14 +208,14 @@ ui <- shinyUI(fluidPage(theme = shinytheme("flatly"),
 server <- shinyServer(function(input, output, session){
   
   
-  # ObserveEvent - retorna um objeto de acordo com as escolhas do usuário, neste caso, "vara do TRT10 e Tribunal escolhido pelo usuário"
+  # ObserveEvent - retorna um objeto de acordo com as escolhas do usuÃ¡rio, neste caso, "vara do TRT10 e Tribunal escolhido pelo usuÃ¡rio"
   observeEvent({
     req(input$varas1)
     req(input$tribunal)
     # Desativado - req(input$tribunal_varas) 
     },
     {
-      # Chamo de 'trt' a escolha do tribunal, logo após atribuo(if) um banco de dados ao objeto dados
+      # Chamo de 'trt' a escolha do tribunal, logo apÃ³s atribuo(if) um banco de dados ao objeto dados
       trt <- input$tribunal
       if(trt == "GERAL"){dados <- geral}
       if(trt == "TRT01-RJ"){dados <- trt1}
@@ -185,18 +244,18 @@ server <- shinyServer(function(input, output, session){
       if(trt == "TRT24-MS"){dados <- trt24}
       
  
-      # colnames aparece muito nesse código. As vezes o r não grava ou atribui nomes diferentes as colunas de um data.frame
-      # o códio é mais pela precaução
-      colnames(dados) <- c("Vara do Trabalho","V01 - Idade Média do Pendente de Julgamento","V02 - Pendentes de Baixa na Fase de Conhecimento","V03 - Liquidações Pendentes","V04 - Pendentes de Baixa na Fase de Execução",
-                           "V05 - Prazo na Fase de Conhecimento","V06 - Prazo na Fase de Liquidação","V07 - Prazo na Fase de Execução","V08 - Conciliações","V09 - Solucionados",
-                           "V10 - Recebidos","V11 - Pendentes de Julgamento conclusos com prazo vencido","V12 - Total de Processos Conclusos aguardando prolação da sentença",
-                           "V13 - Baixados na Fase de Conhecimento","V14 - Baixados na Fase de Execução","V15 - Servidores Ativos","V16 - Execuções Iniciadas","V17 - Execuções Encerradas")
+      # colnames aparece muito nesse cÃ³digo. As vezes o r nÃ£o grava ou atribui nomes diferentes as colunas de um data.frame
+      # o cÃ³dio Ã© mais pela precauÃ§Ã£o
+      colnames(dados) <- c("Vara do Trabalho","V01 - Idade MÃ©dia do Pendente de Julgamento","V02 - Pendentes de Baixa na Fase de Conhecimento","V03 - LiquidaÃ§Ãµes Pendentes","V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o",
+                           "V05 - Prazo na Fase de Conhecimento","V06 - Prazo na Fase de LiquidaÃ§Ã£o","V07 - Prazo na Fase de ExecuÃ§Ã£o","V08 - ConciliaÃ§Ãµes","V09 - Solucionados",
+                           "V10 - Recebidos","V11 - Pendentes de Julgamento conclusos com prazo vencido","V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a",
+                           "V13 - Baixados na Fase de Conhecimento","V14 - Baixados na Fase de ExecuÃ§Ã£o","V15 - Servidores Ativos","V16 - ExecuÃ§Ãµes Iniciadas","V17 - ExecuÃ§Ãµes Encerradas")
       
       
       ## Desativado - updatePickerInput(session, "tribunal_varas", choices = dados$`Vara do Trabalho`)
       ## Desativado - varas_escolha <- input$tribunal_varas
       
-      # Objeto 'vara' ira guardar a escolha do usuário quanto a vara escolhida para o TRT10
+      # Objeto 'vara' ira guardar a escolha do usuÃ¡rio quanto a vara escolhida para o TRT10
       vara <- input$varas1
       
       # Retiro de dados a vara escolhida, uma vez que, se considerarmos os dados gerais e os dados do TRT10, uma mesma vara apareceria 2 vezes.
@@ -206,25 +265,25 @@ server <- shinyServer(function(input, output, session){
       filtro <- trt10 %>%
         filter(str_detect(trt10$`Vara do Trabalho`,vara))
       
-      updateNumericInput(session, "v01", value = round(filtro$`V01 - Idade Média do Pendente de Julgamento`[1],4), min = 0, step = 0.1)
+      updateNumericInput(session, "v01", value = round(filtro$`V01 - Idade MÃ©dia do Pendente de Julgamento`[1],4), min = 0, step = 0.1)
       updateNumericInput(session, "v02", value = round(filtro$`V02 - Pendentes de Baixa na Fase de Conhecimento`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v03", value = round(filtro$`V03 - Liquidações Pendentes`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v04", value = round(filtro$`V04 - Pendentes de Baixa na Fase de Execução`[1],4), min = 0, step = 25)
+      updateNumericInput(session, "v03", value = round(filtro$`V03 - LiquidaÃ§Ãµes Pendentes`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v04", value = round(filtro$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`[1],4), min = 0, step = 25)
       updateNumericInput(session, "v05", value = round(filtro$`V05 - Prazo na Fase de Conhecimento`[1],4), min = 0, step = 25)
-      updateNumericInput(session, "v06", value = round(filtro$`V06 - Prazo na Fase de Liquidação`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v07", value = round(filtro$`V07 - Prazo na Fase de Execução`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v08", value = round(filtro$`V08 - Conciliações`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v06", value = round(filtro$`V06 - Prazo na Fase de LiquidaÃ§Ã£o`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v07", value = round(filtro$`V07 - Prazo na Fase de ExecuÃ§Ã£o`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v08", value = round(filtro$`V08 - ConciliaÃ§Ãµes`[1],4), min = 0, step = 10)
       updateNumericInput(session, "v09", value = round(filtro$`V09 - Solucionados`[1],4), min = 0, step = 10)
       updateNumericInput(session, "v10", value = round(filtro$`V10 - Recebidos`[1],4), min = 0, step = 10)
       updateNumericInput(session, "v11", value = round(filtro$`V11 - Pendentes de Julgamento conclusos com prazo vencido`[1],4), min = 0, step = 1)
-      updateNumericInput(session, "v12", value = round(filtro$`V12 - Total de Processos Conclusos aguardando prolação da sentença`[1],4), min = 0, step = 1)
+      updateNumericInput(session, "v12", value = round(filtro$`V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a`[1],4), min = 0, step = 1)
       updateNumericInput(session, "v13", value = round(filtro$`V13 - Baixados na Fase de Conhecimento`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v14", value = round(filtro$`V14 - Baixados na Fase de Execução`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v14", value = round(filtro$`V14 - Baixados na Fase de ExecuÃ§Ã£o`[1],4), min = 0, step = 10)
       updateNumericInput(session, "v15", value = round(filtro$`V15 - Servidores Ativos`[1],4), min = 0, step = 1)
-      updateNumericInput(session, "v16", value = round(filtro$`V16 - Execuções Iniciadas`[1],4), min = 0, step = 10)
-      updateNumericInput(session, "v17", value = round(filtro$`V17 - Execuções Encerradas`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v16", value = round(filtro$`V16 - ExecuÃ§Ãµes Iniciadas`[1],4), min = 0, step = 10)
+      updateNumericInput(session, "v17", value = round(filtro$`V17 - ExecuÃ§Ãµes Encerradas`[1],4), min = 0, step = 10)
       
-      # CRiação do texto que guarda a informação do valor de cada variável para cada vara do trabalho (TRT10ª)
+      # CRiaÃ§Ã£o do texto que guarda a informaÃ§Ã£o do valor de cada variÃ¡vel para cada vara do trabalho (TRT10Âª)
       # valor_xx <- 0 
       valor_01 <- 0
       valor_02 <- 0
@@ -244,9 +303,9 @@ server <- shinyServer(function(input, output, session){
       valor_16 <- 0
       valor_17 <- 0
       
-      # valores_iniciaisXX[x] -  Valores criados para preencher os "Botões"
+      # valores_iniciaisXX[x] -  Valores criados para preencher os "BotÃµes"
       # 
-      if(vara == "Araguaína  - 01a Vara"){
+      if(vara == "AraguaÃ­na  - 01a Vara"){
         valor_01 <- valores_iniciais1[1]
         valor_02 <- valores_iniciais2[1]
         valor_03 <- valores_iniciais3[1]
@@ -264,7 +323,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[1]
         valor_16 <- valores_iniciais16[1]
         valor_17 <- valores_iniciais17[1]}
-      if(vara == "Araguaína  - 02a Vara"){
+      if(vara == "AraguaÃ­na  - 02a Vara"){
         valor_01 <- valores_iniciais1[2]
         valor_02 <- valores_iniciais2[2]
         valor_03 <- valores_iniciais3[2]
@@ -282,7 +341,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[2]
         valor_16 <- valores_iniciais16[2]
         valor_17 <- valores_iniciais17[2]}
-      if(vara == "Brasília  - 01a Vara"){
+      if(vara == "BrasÃ­lia  - 01a Vara"){
         valor_01 <- valores_iniciais1[3]
         valor_02 <- valores_iniciais2[3]
         valor_03 <- valores_iniciais3[3]
@@ -300,7 +359,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[3]
         valor_16 <- valores_iniciais16[3]
         valor_17 <- valores_iniciais17[3]}
-      if(vara == "Brasília  - 02a Vara"){
+      if(vara == "BrasÃ­lia  - 02a Vara"){
         valor_01 <- valores_iniciais1[4]
         valor_02 <- valores_iniciais2[4]
         valor_03 <- valores_iniciais3[4]
@@ -318,7 +377,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[4]
         valor_16 <- valores_iniciais16[4]
         valor_17 <- valores_iniciais17[4]}
-      if(vara == "Brasília  - 03a Vara"){
+      if(vara == "BrasÃ­lia  - 03a Vara"){
         valor_01 <- valores_iniciais1[5]
         valor_02 <- valores_iniciais2[5]
         valor_03 <- valores_iniciais3[5]
@@ -336,7 +395,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[5]
         valor_16 <- valores_iniciais16[5]
         valor_17 <- valores_iniciais17[5]}
-      if(vara == "Brasília  - 04a Vara"){
+      if(vara == "BrasÃ­lia  - 04a Vara"){
         valor_01 <- valores_iniciais1[6]
         valor_02 <- valores_iniciais2[6]
         valor_03 <- valores_iniciais3[6]
@@ -354,7 +413,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[6]
         valor_16 <- valores_iniciais16[6]
         valor_17 <- valores_iniciais17[6]}
-      if(vara == "Brasília  - 05a Vara"){
+      if(vara == "BrasÃ­lia  - 05a Vara"){
         valor_01 <- valores_iniciais1[7]
         valor_02 <- valores_iniciais2[7]
         valor_03 <- valores_iniciais3[7]
@@ -372,7 +431,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[7]
         valor_16 <- valores_iniciais16[7]
         valor_17 <- valores_iniciais17[7]}
-      if(vara == "Brasília  - 06a Vara"){
+      if(vara == "BrasÃ­lia  - 06a Vara"){
         valor_01 <- valores_iniciais1[8]
         valor_02 <- valores_iniciais2[8]
         valor_03 <- valores_iniciais3[8]
@@ -390,7 +449,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[8]
         valor_16 <- valores_iniciais16[8]
         valor_17 <- valores_iniciais17[8]}
-      if(vara == "Brasília  - 07a Vara"){
+      if(vara == "BrasÃ­lia  - 07a Vara"){
         valor_01 <- valores_iniciais1[9]
         valor_02 <- valores_iniciais2[9]
         valor_03 <- valores_iniciais3[9]
@@ -408,7 +467,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[9]
         valor_16 <- valores_iniciais16[9]
         valor_17 <- valores_iniciais17[9]}
-      if(vara == "Brasília  - 08a Vara"){
+      if(vara == "BrasÃ­lia  - 08a Vara"){
         valor_01 <- valores_iniciais1[10]
         valor_02 <- valores_iniciais2[10]
         valor_03 <- valores_iniciais3[10]
@@ -426,7 +485,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[10]
         valor_16 <- valores_iniciais16[10]
         valor_17 <- valores_iniciais17[10]}
-      if(vara == "Brasília  - 09a Vara"){
+      if(vara == "BrasÃ­lia  - 09a Vara"){
         valor_01 <- valores_iniciais1[11]
         valor_02 <- valores_iniciais2[11]
         valor_03 <- valores_iniciais3[11]
@@ -444,7 +503,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[11]
         valor_16 <- valores_iniciais16[11]
         valor_17 <- valores_iniciais17[11]}
-      if(vara == "Brasília  - 10a Vara"){
+      if(vara == "BrasÃ­lia  - 10a Vara"){
         valor_01 <- valores_iniciais1[12]
         valor_02 <- valores_iniciais2[12]
         valor_03 <- valores_iniciais3[12]
@@ -462,7 +521,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[12]
         valor_16 <- valores_iniciais16[12]
         valor_17 <- valores_iniciais17[12]}
-      if(vara == "Brasília  - 11a Vara"){
+      if(vara == "BrasÃ­lia  - 11a Vara"){
         valor_01 <- valores_iniciais1[13]
         valor_02 <- valores_iniciais2[13]
         valor_03 <- valores_iniciais3[13]
@@ -480,7 +539,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[13]
         valor_16 <- valores_iniciais16[13]
         valor_17 <- valores_iniciais17[13]}
-      if(vara == "Brasília  - 12a Vara"){
+      if(vara == "BrasÃ­lia  - 12a Vara"){
         valor_01 <- valores_iniciais1[14]
         valor_02 <- valores_iniciais2[14]
         valor_03 <- valores_iniciais3[14]
@@ -498,7 +557,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[14]
         valor_16 <- valores_iniciais16[14]
         valor_17 <- valores_iniciais17[14]}
-      if(vara == "Brasília  - 13a Vara"){
+      if(vara == "BrasÃ­lia  - 13a Vara"){
         valor_01 <- valores_iniciais1[15]
         valor_02 <- valores_iniciais2[15]
         valor_03 <- valores_iniciais3[15]
@@ -516,7 +575,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[15]
         valor_16 <- valores_iniciais16[15]
         valor_17 <- valores_iniciais17[15]}
-      if(vara == "Brasília  - 14a Vara"){
+      if(vara == "BrasÃ­lia  - 14a Vara"){
         valor_01 <- valores_iniciais1[16]
         valor_02 <- valores_iniciais2[16]
         valor_03 <- valores_iniciais3[16]
@@ -534,7 +593,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[16]
         valor_16 <- valores_iniciais16[16]
         valor_17 <- valores_iniciais17[16]}
-      if(vara == "Brasília  - 15a Vara"){
+      if(vara == "BrasÃ­lia  - 15a Vara"){
         valor_01 <- valores_iniciais1[17]
         valor_02 <- valores_iniciais2[17]
         valor_03 <- valores_iniciais3[17]
@@ -552,7 +611,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[17]
         valor_16 <- valores_iniciais16[17]
         valor_17 <- valores_iniciais17[17]}
-      if(vara == "Brasília  - 16a Vara"){
+      if(vara == "BrasÃ­lia  - 16a Vara"){
         valor_01 <- valores_iniciais1[18]
         valor_02 <- valores_iniciais2[18]
         valor_03 <- valores_iniciais3[18]
@@ -570,7 +629,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[18]
         valor_16 <- valores_iniciais16[18]
         valor_17 <- valores_iniciais17[18]}
-      if(vara == "Brasília  - 17a Vara"){
+      if(vara == "BrasÃ­lia  - 17a Vara"){
         valor_01 <- valores_iniciais1[19]
         valor_02 <- valores_iniciais2[19]
         valor_03 <- valores_iniciais3[19]
@@ -588,7 +647,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[19]
         valor_16 <- valores_iniciais16[19]
         valor_17 <- valores_iniciais17[19]}
-      if(vara == "Brasília  - 18a Vara"){
+      if(vara == "BrasÃ­lia  - 18a Vara"){
         valor_01 <- valores_iniciais1[20]
         valor_02 <- valores_iniciais2[20]
         valor_03 <- valores_iniciais3[20]
@@ -606,7 +665,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[20]
         valor_16 <- valores_iniciais16[20]
         valor_17 <- valores_iniciais17[20]}
-      if(vara == "Brasília  - 19a Vara"){
+      if(vara == "BrasÃ­lia  - 19a Vara"){
         valor_01 <- valores_iniciais1[21]
         valor_02 <- valores_iniciais2[21]
         valor_03 <- valores_iniciais3[21]
@@ -624,7 +683,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[21]
         valor_16 <- valores_iniciais16[21]
         valor_17 <- valores_iniciais17[21]}
-      if(vara == "Brasília  - 20a Vara"){
+      if(vara == "BrasÃ­lia  - 20a Vara"){
         valor_01 <- valores_iniciais1[22]
         valor_02 <- valores_iniciais2[22]
         valor_03 <- valores_iniciais3[22]
@@ -642,7 +701,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[22]
         valor_16 <- valores_iniciais16[22]
         valor_17 <- valores_iniciais17[22]}
-      if(vara == "Brasília  - 21a Vara"){
+      if(vara == "BrasÃ­lia  - 21a Vara"){
         valor_01 <- valores_iniciais1[23]
         valor_02 <- valores_iniciais2[23]
         valor_03 <- valores_iniciais3[23]
@@ -660,7 +719,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[23]
         valor_16 <- valores_iniciais16[23]
         valor_17 <- valores_iniciais17[23]}
-      if(vara == "Brasília  - 22a Vara"){
+      if(vara == "BrasÃ­lia  - 22a Vara"){
         valor_01 <- valores_iniciais1[24]
         valor_02 <- valores_iniciais2[24]
         valor_03 <- valores_iniciais3[24]
@@ -678,7 +737,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[24]
         valor_16 <- valores_iniciais16[24]
         valor_17 <- valores_iniciais17[24]}
-      if(vara == "Dianópolis  - 01a Vara"){
+      if(vara == "DianÃ³polis  - 01a Vara"){
         valor_01 <- valores_iniciais1[25]
         valor_02 <- valores_iniciais2[25]
         valor_03 <- valores_iniciais3[25]
@@ -714,7 +773,7 @@ server <- shinyServer(function(input, output, session){
         valor_15 <- valores_iniciais15[26]
         valor_16 <- valores_iniciais16[26]
         valor_17 <- valores_iniciais17[26]}
-      if(vara == "Guaraí  - 01a Vara"){
+      if(vara == "GuaraÃ­  - 01a Vara"){
         valor_01 <- valores_iniciais1[27]
         valor_02 <- valores_iniciais2[27]
         valor_03 <- valores_iniciais3[27]
@@ -877,7 +936,7 @@ server <- shinyServer(function(input, output, session){
         valor_16 <- valores_iniciais16[35]
         valor_17 <- valores_iniciais17[35]}
       
-      # Atualizar os textos de acordo com a vara escolhida pelo usuário
+      # Atualizar os textos de acordo com a vara escolhida pelo usuÃ¡rio
       updateTextInput(session, "texto_01", value = paste("Valor Inicial de V01 = ", valor_01))
       updateTextInput(session, "texto_02", value = paste("Valor Inicial de V02 = ", valor_02))
       updateTextInput(session, "texto_03", value = paste("Valor Inicial de V03 = ", valor_03))
@@ -899,7 +958,7 @@ de        =
       ## Desativado - varascomp <- as.data.frame(input$tribunal_varas)
       ## Desativado - colnames(varascomp) <- "Vara de Trabalho"
       
-      # Agora todos os inputs das variáveis são os objetos interativos
+      # Agora todos os inputs das variÃ¡veis sÃ£o os objetos interativos
       observeEvent({
         req(input$v01)
         req(input$v02)
@@ -920,44 +979,44 @@ de        =
         req(input$v17)
       },{
         
-        ## A escolha do usuário consiste em: Vara, v01, ..., v17
+        ## A escolha do usuÃ¡rio consiste em: Vara, v01, ..., v17
         escolha_user <- data.frame(rbind(c(vara,input$v01,input$v02,input$v03,input$v04,input$v05
                                            ,input$v06,input$v07,input$v08,input$v09,input$v10
                                            ,input$v11,input$v12,input$v13,input$v14,input$v15
                                            ,input$v16,input$v17)))
         
-        colnames(escolha_user) <- c("Vara do Trabalho","V01 - Idade Média do Pendente de Julgamento","V02 - Pendentes de Baixa na Fase de Conhecimento","V03 - Liquidações Pendentes","V04 - Pendentes de Baixa na Fase de Execução",
-                                    "V05 - Prazo na Fase de Conhecimento","V06 - Prazo na Fase de Liquidação","V07 - Prazo na Fase de Execução","V08 - Conciliações","V09 - Solucionados",
-                                    "V10 - Recebidos","V11 - Pendentes de Julgamento conclusos com prazo vencido","V12 - Total de Processos Conclusos aguardando prolação da sentença",
-                                    "V13 - Baixados na Fase de Conhecimento","V14 - Baixados na Fase de Execução","V15 - Servidores Ativos","V16 - Execuções Iniciadas","V17 - Execuções Encerradas")
+        colnames(escolha_user) <- c("Vara do Trabalho","V01 - Idade MÃ©dia do Pendente de Julgamento","V02 - Pendentes de Baixa na Fase de Conhecimento","V03 - LiquidaÃ§Ãµes Pendentes","V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o",
+                                    "V05 - Prazo na Fase de Conhecimento","V06 - Prazo na Fase de LiquidaÃ§Ã£o","V07 - Prazo na Fase de ExecuÃ§Ã£o","V08 - ConciliaÃ§Ãµes","V09 - Solucionados",
+                                    "V10 - Recebidos","V11 - Pendentes de Julgamento conclusos com prazo vencido","V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a",
+                                    "V13 - Baixados na Fase de Conhecimento","V14 - Baixados na Fase de ExecuÃ§Ã£o","V15 - Servidores Ativos","V16 - ExecuÃ§Ãµes Iniciadas","V17 - ExecuÃ§Ãµes Encerradas")
         
-        ## Apenas segurança, para transformar todas as variáveis em numéricas
+        ## Apenas seguranÃ§a, para transformar todas as variÃ¡veis em numÃ©ricas
         escolha_user[, 2:18] <- sapply(escolha_user[, 2:18], as.numeric)
         dados <- rbind(escolha_user,dados)
         dados[,2:18] <- sapply(dados[,2:18],as.numeric) # Talvez seja redundante.
         
-        ## Número de linhas em dados, necessário para calcular os valores parametrizados a partir do boxplot
+        ## NÃºmero de linhas em dados, necessÃ¡rio para calcular os valores parametrizados a partir do boxplot
         n <- nrow(dados)
         
         ## Calculo dos indicadores
-        I01 <- dados$`V01 - Idade Média do Pendente de Julgamento`
+        I01 <- dados$`V01 - Idade MÃ©dia do Pendente de Julgamento`
         I01[is.na(I01)] <- 0
         I02 <- 
           dados$`V02 - Pendentes de Baixa na Fase de Conhecimento` +
-          dados$`V03 - Liquidações Pendentes`+
-          dados$`V04 - Pendentes de Baixa na Fase de Execução`
+          dados$`V03 - LiquidaÃ§Ãµes Pendentes`+
+          dados$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`
         I02[is.na(I02)] <- 0
         I03 <- 
           (dados$`V11 - Pendentes de Julgamento conclusos com prazo vencido`/
-             dados$`V12 - Total de Processos Conclusos aguardando prolação da sentença`)*100
+             dados$`V12 - Total de Processos Conclusos aguardando prolaÃ§Ã£o da sentenÃ§a`)*100
         I03[is.na(I03)] <- 0
         I04 <- dados$`V05 - Prazo na Fase de Conhecimento`
         I04[is.na(I04)] <- 0
-        I05 <- dados$`V06 - Prazo na Fase de Liquidação`
+        I05 <- dados$`V06 - Prazo na Fase de LiquidaÃ§Ã£o`
         I05[is.na(I05)] <- 0
-        I06 <- dados$`V07 - Prazo na Fase de Execução`
+        I06 <- dados$`V07 - Prazo na Fase de ExecuÃ§Ã£o`
         I06[is.na(I06)] <- 0
-        I07 <- (dados$`V08 - Conciliações`/
+        I07 <- (dados$`V08 - ConciliaÃ§Ãµes`/
                   dados$`V09 - Solucionados`)*100
         I07[is.na(I07)] <- 0
         I08 <- (dados$`V09 - Solucionados`/
@@ -966,17 +1025,17 @@ de        =
         I09 <- 100*(dados$`V02 - Pendentes de Baixa na Fase de Conhecimento`/
                       (dados$`V13 - Baixados na Fase de Conhecimento`+dados$`V02 - Pendentes de Baixa na Fase de Conhecimento`))
         I09[is.na(I09)] <- 0
-        I10 <- 100*(dados$`V04 - Pendentes de Baixa na Fase de Execução`/
-                      (dados$`V14 - Baixados na Fase de Execução`+dados$`V04 - Pendentes de Baixa na Fase de Execução`))
+        I10 <- 100*(dados$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`/
+                      (dados$`V14 - Baixados na Fase de ExecuÃ§Ã£o`+dados$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`))
         I10[is.na(I10)] <- 0
-        I11 <- (dados$`V13 - Baixados na Fase de Conhecimento`+dados$`V14 - Baixados na Fase de Execução`)/
+        I11 <- (dados$`V13 - Baixados na Fase de Conhecimento`+dados$`V14 - Baixados na Fase de ExecuÃ§Ã£o`)/
           dados$`V15 - Servidores Ativos`
         I11[is.na(I11)] <- 0
-        I12 <- (dados$`V02 - Pendentes de Baixa na Fase de Conhecimento`+dados$`V04 - Pendentes de Baixa na Fase de Execução`)/
+        I12 <- (dados$`V02 - Pendentes de Baixa na Fase de Conhecimento`+dados$`V04 - Pendentes de Baixa na Fase de ExecuÃ§Ã£o`)/
           dados$`V15 - Servidores Ativos`
         I12[is.na(I12)] <- 0
-        I13 <- (dados$`V17 - Execuções Encerradas`/
-                  dados$`V16 - Execuções Iniciadas`)*100
+        I13 <- (dados$`V17 - ExecuÃ§Ãµes Encerradas`/
+                  dados$`V16 - ExecuÃ§Ãµes Iniciadas`)*100
         I13[is.na(I13)] <- 0
         
         ## Limites de cada indicador
@@ -1075,7 +1134,7 @@ de        =
                        "I07","I08","I09","I10","I11","I12","I13")))
         
         
-        ## Data.frame vazio, nele serão colocados, para cada  vara em dados, o respectivo
+        ## Data.frame vazio, nele serÃ£o colocados, para cada  vara em dados, o respectivo
         ## valor do indicador parametrizado.
         meso_calculado <- data.frame(matrix(NA,nrow = n, ncol = 14, byrow = F))
         meso_calculado[,1] <- dados$`Vara do Trabalho`
@@ -1159,7 +1218,7 @@ de        =
           if(I12[i] >= LI12 & I12[i] <= LS12){meso_calculado[i,13] <- (I12[i]-LI12)/(LS12-LI12)}
         }
         
-        ### ATENÇÃO, é neceário retirar os NA's do dataframe.
+        ### ATENÃ‡ÃƒO, Ã© neceÃ¡rio retirar os NA's do dataframe.
         ### alguns indicadores tiveram o mesmo valor para limite inferior e superior
         meso_calculado <- meso_calculado %>% replace(is.na(.), 0)
         
@@ -1219,25 +1278,25 @@ de        =
         ranking_igest <- ranking_igest %>%
           mutate_if(is.numeric, round, digits = 4)
         
-        colnames(ranking_igest) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","Força de trabalho","IGEST")
+        colnames(ranking_igest) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","ForÃ§a de trabalho","IGEST")
         
         ######DESATIVADO#########
         #linha_1 <- ranking_igest[1,]
         #data <- ranking_igest %>%
         #  filter(str_detect(ranking_igest$`Vara do Trabalho`, str_c(input$tribunal_varas, collapse = "|")))
-        #colnames(linha_1) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","Força de trabalho","IGEST")
-        #colnames(data) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","Força de trabalho","IGEST")
+        #colnames(linha_1) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","ForÃ§a de trabalho","IGEST")
+        #colnames(data) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","ForÃ§a de trabalho","IGEST")
         
         #ranking_igest <- rbind(linha_1, data)
-        #colnames(ranking_igest) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","Força de trabalho","IGEST")
+        #colnames(ranking_igest) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","ForÃ§a de trabalho","IGEST")
         ######DESATIVADO#########
         
-        ## Mesoindicadores por posição
+        ## Mesoindicadores por posiÃ§Ã£o
         ranking <- data.frame(ranking_igest$`Vara do Trabalho`, rank(ranking_igest$`Acervo`, ties.method = "first"), rank(ranking_igest$`Celeridade`, ties.method = "first"), 
                               rank(ranking_igest$`Produtividade`, ties.method = "first"), rank(ranking_igest$`Tx Congestionamento`, ties.method = "first"), 
-                              rank(ranking_igest$`Força de trabalho`, ties.method = "first"), rank(ranking_igest$`IGEST`, ties.method = "first"))
+                              rank(ranking_igest$`ForÃ§a de trabalho`, ties.method = "first"), rank(ranking_igest$`IGEST`, ties.method = "first"))
         
-        colnames(ranking) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","Força de trabalho","IGEST")
+        colnames(ranking) <- c("Vara do Trabalho", "Acervo","Celeridade","Produtividade","Tx Congestionamento","ForÃ§a de trabalho","IGEST")
         
         
         
@@ -1265,7 +1324,7 @@ de        =
           style = "bootstrap",
           class = "cell-border stripe",
           rownames = FALSE,
-          colnames = c("Vara selecionada", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","Força de trabalho","IGEST")))
+          colnames = c("Vara selecionada", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","ForÃ§a de trabalho","IGEST")))
           
         output$valor01 <- DT::renderDataTable(
           DT::datatable({                     
@@ -1281,7 +1340,7 @@ de        =
           style = "bootstrap",
           class = "cell-border stripe",
           rownames = FALSE,
-          colnames = c("Demais varas", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","Força de trabalho","IGEST")))
+          colnames = c("Demais varas", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","ForÃ§a de trabalho","IGEST")))
         
         output$valor02_fixo <- DT::renderDataTable(
           DT::datatable({                     
@@ -1295,7 +1354,7 @@ de        =
           style = "bootstrap",
           class = "cell-border stripe",
           rownames = FALSE,
-          colnames = c("Vara selecionada", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","Força de trabalho","IGEST")))
+          colnames = c("Vara selecionada", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","ForÃ§a de trabalho","IGEST")))
        
         output$valor02 <- DT::renderDataTable(
           DT::datatable({                     
@@ -1311,7 +1370,7 @@ de        =
           style = "bootstrap",
           class = "cell-border stripe",
           rownames = FALSE,
-          colnames = c("Demais varas", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","Força de trabalho","IGEST")))
+          colnames = c("Demais varas", "Acervo","Celeridade","Produtividade","Tx de Congestionamento","ForÃ§a de trabalho","IGEST")))
      
      })
     })
