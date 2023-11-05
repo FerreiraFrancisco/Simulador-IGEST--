@@ -1,2 +1,4 @@
 # Simulador-IGEST--
-Simulador em R criado para auxiliar as varas do trabalho da 10º Região.
+
+Este simulador foi criado como alternativa ao simulador feito no Tableau. Neste, utilizei o R a biblioteca shiny.
+Para melhorar a experiência, sugiro que leia o manual do IGEST.
