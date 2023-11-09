@@ -1,3 +1,8 @@
+library(pacman)
+p_load(shiny,shinydashboard,shinydashboardPlus,shinyjs,
+       readxl,shinythemes,DT,tidyverse,shinyWidgets,
+       stringr, plotly)
+
 ######################################
 # Para facilitar o código, abra o arquivo e de o nome "geral"
 
